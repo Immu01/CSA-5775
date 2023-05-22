@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Employee {
+    int empId;
+    char name[50];
+    int age;
+};
+
+int main() {
+    struct Employee emp;
+    FILE* file;
+    char filename[50];
+    int choice;
+
+    printf("Enter the filename: ");
+    scanf("%s", filename);
+
+    // Open the file in append mode
+    file = fopen(filename, "a");
+
+    if (file == NULL) {
+        printf("Unable to open the file.\n");
+        return 1;
+    }
+
+    do {
+        printf("\n1. Add Employee\n");
+        printf("2. Display Employees\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("\nEnter Employee ID: ");
+                scanf("%d", &emp.empId);
+                printf("Enter Name: ");
+                scanf("%s", emp.name);
+                printf("Enter Age: ");
+                scanf("%d", &emp.age);
+
+                // Write employee details to the file
+                fprintf(file, "%d %s %d\n", emp.empId, emp.name, emp.age);
+
+                printf("\nEmployee added successfully.\n");
+                break;
+            case 2:
+                rewind(file);  // Move the file pointer to the beginning
+
+                printf("\nEmployee Details:\n");
+                printf("ID\tName\tAge\n");
+
+                // Read and display employee details from the file
+                while (fscanf(file, "%d %s %d\n", &emp.empId, emp.name, &emp.age) != EOF) {
+                    printf("%d\t%s\t%d\n", emp.empId, emp.name, emp.age);
+                }
+                break;
+            case 3:
+                printf("\nExiting program.\n");
+                break;
+            default:
+                printf("\nInvalid choice. Please try again.\n");
+                break;
+        }
+    } while (choice != 3);
+
+    // Close the file
+    fclose(file);
+
+    return 0;
+}
