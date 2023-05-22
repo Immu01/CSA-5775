@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    char octalNumber[100];
+    long decimalNumber;
+
+    printf("Enter an octal number: ");
+    scanf("%s", octalNumber);
+
+    decimalNumber = strtol(octalNumber, NULL, 8);
+
+    printf("Decimal equivalent: %ld\n", decimalNumber);
+
+    return 0;
+}
