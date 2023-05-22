@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <math.h>
+
+double factorial(int n) {
+    if (n <= 1) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
+
+double cosSeries(double x, int terms) {
+    double result = 1;
+    int i;
+    int sign = -1;
+
+    for (i = 2; i <= terms; i += 2) {
+        result += (sign * pow(x, i) / factorial(i));
+        sign *= -1;
+    }
+
+    return result;
+}
+
+int main() {
+    double x;
+    int terms;
+
+    printf("Enter the value of x in radians: ");
+    scanf("%lf", &x);
+
+    printf("Enter the number of terms: ");
+    scanf("%d", &terms);
+
+    double cosine = cosSeries(x, terms);
+
+    printf("Cosine of %.2lf radians using %d terms: %.6lf\n", x, terms, cosine);
+
+    return 0;
+}
