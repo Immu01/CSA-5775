@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Read the input string
+echo "Enter a string:"
+read input_string
+
+# Convert the string to lower case for case-insensitive matching
+lower_case_string=$(echo "$input_string" | tr '[:upper:]' '[:lower:]')
+
+# Define the vowels
+vowels="aeiou"
+
+# Initialize the vowel count
+count=0
+
+# Loop through each character in the string
+for (( i=0; i<${#lower_case_string}; i++ ))
+do
+    # Check if the character is a vowel
+    if [[ $vowels == *"${lower_case_string:$i:1}"* ]]; then
+        (( count++ ))
+    fi
+done
+
+# Print the vowel count
+echo "Number of vowels: $count"
